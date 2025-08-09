@@ -2,10 +2,8 @@
 
 namespace App\Controllers;
 
-use CodeIgniter\Controller;
 use App\Models\AlunoModel;
 use App\Models\TurmaModel;
-use App\Models\CursoModel;
 
 class AlunoController extends BaseController
 {
@@ -13,64 +11,73 @@ class AlunoController extends BaseController
     {
         $alunoModel = new AlunoModel();
         $turmaModel = new TurmaModel();
-        $cursoModel = new CursoModel();
+        
+        $alunos = $alunoModel->paginate(10);
+        $pager = $alunoModel->pager;
 
-        $data['alunos'] = $alunoModel->orderBy('nome')->findAll();
-        $data['turmas'] = $turmaModel
-                        ->select('turmas.*, cursos.nome as curso_nome')
-                        ->join('cursos', 'cursos.id = turmas.curso_id')
-                        ->orderBy('turmas.nome')
-                        ->findAll();
+        $dataAlunos = [
+            'alunos' => $alunos,
+            'pager' => $pager,
+            'turmas' => $turmaModel->select('turmas.*, cursos.nome as curso_nome')->join('cursos', 'cursos.id = turmas.curso_id')->findAll(),
+        ];
+        
+        $mainContent = view('sys/aluno', $dataAlunos);
 
-        $data['content'] = view('sys/aluno', $data);
+        $data = [
+            'content' => $mainContent,
+        ];
+        
         return view('dashboard', $data);
     }
-
-    public function store()
+    
+    public function criar()
     {
         $alunoModel = new AlunoModel();
-
-        $post = $this->request->getPost();
-
-        $input['nome'] = strip_tags($post['nome']);
-
-        if ($aluno->insert($input)) {
-            session()->setFlashdata('sucesso', 'Aluno cadastrado com sucesso!');
-            return redirect()->to(base_url('/sys/aluno'));
+        $postData = $this->request->getPost();
+        
+        // CORREÇÃO: A validação e a inserção agora são mais simples. O modelo lida com a conversão.
+        if (!$alunoModel->insert($postData)) {
+            return redirect()->back()->withInput()->with('errors', $alunoModel->errors());
         } else {
-            return redirect()->to(base_url('/sys/aluno'))->with('erros', $aluno->errors())->withInput();
+            return redirect()->to('sys/alunos')->with('success', 'Aluno cadastrado com sucesso!');
         }
     }
-
-    public function update()
+    
+    public function delete($id)
     {
-        $post = $this->request->getPost();
-
-        $input['id'] = (int) strip_tags($post['id']);
-        $input['nome'] = strip_tags($post['nome']);
-
-        $aluno = new AlunoModel();
-        if ($aluno->save($input)) {
-            session()->setFlashdata('sucesso', 'Aluno atualizado com sucesso!');
-            return redirect()->to(base_url('/sys/aluno'));
+        $alunoModel = new AlunoModel();
+        
+        if ($alunoModel->delete($id)) {
+            return redirect()->to('sys/alunos')->with('success', 'Aluno deletado com sucesso!');
         } else {
-            return redirect()->to(base_url('/sys/aluno'))->with('erros', $aluno->errors())->withInput();
+            return redirect()->to('sys/alunos')->with('errors', ['Erro ao deletar o aluno.']);
         }
     }
-
-    public function delete()
+    
+    public function edit($id)
     {
-        $post = $this->request->getPost();
-        $id = (int) strip_tags($post['id']);
+        $alunoModel = new AlunoModel();
+        $aluno = $alunoModel->find($id);
 
-        $aluno = new AlunoModel();
+        if ($aluno === null) {
+            return $this->response->setStatusCode(404)->setJSON(['error' => 'Aluno não encontrado.']);
+        }
 
-        if ($aluno->delete($id)) {
-            session()->setFlashdata('sucesso', 'Aluno deletado com sucesso!');
-            return redirect()->to(base_url('/sys/aluno'));
+        return $this->response->setJSON($aluno);
+    }
+
+    public function update($id)
+    {
+        $alunoModel = new AlunoModel();
+        $postData = $this->request->getPost();
+        
+        unset($postData['matricula']);
+        unset($postData['_method']);
+
+        if (!$alunoModel->update($id, $postData)) {
+            return redirect()->back()->withInput()->with('errors', $alunoModel->errors());
         } else {
-            session()->setFlashdata('erro', $aluno->errors());
-            return redirect()->to(base_url('/sys/aluno'));
+            return redirect()->to('sys/alunos')->with('success', 'Aluno atualizado com sucesso!');
         }
     }
 }

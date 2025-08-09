@@ -44,8 +44,7 @@ $routes->group('sys', function ($routes) {
     //==============================================================
     $routes->group('alunos', static function ($routes) {
         $routes->get('', 'AlunoController::index');
-        $routes->get('criar', 'AlunoController::create');
-        $routes->post('criar', 'AlunoController::store');
+        $routes->post('criar', 'AlunoController::criar');
         $routes->get('editar/(:num)', 'AlunoController::edit/$1');
         $routes->put('atualizar/(:num)', 'AlunoController::update/$1');
         $routes->delete('deletar/(:num)', 'AlunoController::delete/$1');
@@ -88,4 +87,4 @@ $routes->group('sys', function ($routes) {
         $routes->get('nao-servidos', 'RelatorioController::refeicoesNaoServidas');
         $routes->get('confirmados', 'RelatorioController::confirmados');
     });
-});
+}); // <--- Esta chave de fechamento estava faltando

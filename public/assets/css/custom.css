@@ -1,124 +1,165 @@
 /*Customização dos botoes de edição, gerenciamento e exclusão de itens da listagem*/
 .button-trans-success {
-  background-color: rgba(0, 210, 91, 0.2);
-  transition: background-color 0.3s;
+  background-color: rgba(0, 210, 91, 0.2);
+  transition: background-color 0.3s;
 }
 
 .button-trans-success:hover {
-  background-color: rgba(0, 210, 91, 1);
+  background-color: rgba(0, 210, 91, 1);
 }
 
 .button-trans-success > i {
-  color: #00d25b;
-  transition: color 0.3s;
+  color: #00d25b;
+  transition: color 0.3s;
 }
 
 .button-trans-success:hover > i {
-  color: #ffffff;
+  color: #ffffff;
 }
 
 .button-trans-info {
-  background-color: rgba(143, 95, 232, 0.2);
-  transition: background-color 0.3s;
+  background-color: rgba(143, 95, 232, 0.2);
+  transition: background-color 0.3s;
 }
 
 .button-trans-info:hover {
-  background-color: rgba(143, 95, 232, 1);
+  background-color: rgba(143, 95, 232, 1);
 }
 
 .button-trans-info > i {
-  color: #8f5fe8;
-  transition: color 0.3s;
+  color: #8f5fe8;
+  transition: color 0.3s;
 }
 
 .button-trans-info:hover > i {
-  color: #ffffff;
+  color: #ffffff;
 }
 
 .button-trans-danger {
-  background-color: rgba(252, 66, 74, 0.2);
-  transition: background-color 0.3s;
+  background-color: rgba(252, 66, 74, 0.2);
+  transition: background-color 0.3s;
 }
 
 .button-trans-danger:hover {
-  background-color: rgba(252, 66, 74, 1);
+  background-color: rgba(252, 66, 74, 1);
 }
 
 .button-trans-danger > i {
-  color: #fc424a;
-  transition: color 0.3s;
+  color: #fc424a;
+  transition: color 0.3s;
 }
 
 .button-trans-danger:hover > i {
-  color: #ffffff;
+  color: #ffffff;
 }
 
 .button-trans-primary {
-  background-color: rgba(0, 136, 204, 0.2);
-  transition: background-color 0.3s;
+  background-color: rgba(0, 136, 204, 0.2);
+  transition: background-color 0.3s;
 }
 
 .button-trans-primary:hover {
-  background-color: rgba(0, 136, 204, 1);
+  background-color: rgba(0, 136, 204, 1);
 }
 
 .button-trans-primary>i {
-  color: #0088cc;
-  /* Azul padrão */
-  transition: color 0.3s;
+  color: #0088cc;
+  /* Azul padrão */
+  transition: color 0.3s;
 }
 
 .button-trans-primary:hover>i {
-  color: #ffffff;
+  color: #ffffff;
 }
 
 .button-trans-warning {
-  background-color: rgba(255, 193, 7, 0.2);
-  /* Amarelo translúcido */
-  transition: background-color 0.3s;
+  background-color: rgba(255, 193, 7, 0.2);
+  /* Amarelo translúcido */
+  transition: background-color 0.3s;
 }
 
 .button-trans-warning:hover {
-  background-color: rgba(255, 193, 7, 1);
-  /* Amarelo sólido */
+  background-color: rgba(255, 193, 7, 1);
+  /* Amarelo sólido */
 }
 
 .button-trans-warning>i {
-  color: #ffc107;
-  /* Amarelo padrão Bootstrap */
-  transition: color 0.3s;
+  color: #ffc107;
+  /* Amarelo padrão Bootstrap */
+  transition: color 0.3s;
 }
 
 .button-trans-warning:hover>i {
-  color: #ffffff;
-  /* Ícone branco no hover */
+  color: #ffffff;
+  /* Ícone branco no hover */
 }
 
 /*Estilização para tabelas menores*/
 .button-trans-success,
 .button-trans-danger {
-  margin: 0;
+  margin: 0;
 }
 
 .d-flex .btn-icon {
-  margin-right: 0.3rem;
-  width: 2rem;
-  height: 2rem;
-  ;
+  margin-right: 0.3rem;
+  width: 2rem;
+  height: 2rem;
+  ;
 }
 
 .table td,
 .table th {
-  line-height: 1.2;
-  height: auto;
-  padding: 0.3rem 0.5rem;
+  line-height: 1.2;
+  height: auto;
+  padding: 0.3rem 0.5rem;
 }
 
 .select2-container--default .select2-results__option[aria-selected=true] {
-  background-color: #495057 !important;
-  /*Fundo da seleção de opções do select2*/
+  background-color: #495057 !important;
+  /*Fundo da seleção de opções do select2*/
 }
 
 body {
-  background-color: #000;
+  background-color: #000;
+}
+
+/* --- Adição de novos estilos para a página de alunos --- */
+/* Estilos para a tabela */
+.table-container {
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #222d32; /* Fundo cinzento escuro */
+    color: #f8f9fa; /* Cor do texto (branco suave) */
+}
+
+.table th, .table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #3c4b58; /* Linhas de separação */
+}
+
+.table th {
+    background-color: #2a3539; /* Fundo do cabeçalho da tabela */
+    color: #fff;
+    font-weight: bold;
+}
+
+/* Estilo para o botão */
+.btn-primary {
+    background-color: #007bff; /* Azul */
+    color: #fff; /* Branco */
+    border: none;
+    border-radius: 5px; /* Bordas arredondadas */
+    padding: 10px 15px;
+    text-decoration: none; /* Remove o sublinhado */
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Azul mais escuro ao passar o rato */
 }
